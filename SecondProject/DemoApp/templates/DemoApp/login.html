@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>HTML Forms</h2>
+
+<form action="javascript:checkLogin()">{% csrf_token %}
+  First name:<br>
+  <input type="text"  id="first_name"  name="firstname" >
+  <br>
+  Last name:<br>
+  <input type="text" id="last_name" name="lastname">
+  <br><br>
+  <input type="submit" value="Submit">
+</form> 
+<p id="op"></p>
+
+<p>If you click the "Submit" button, the form-data will be sent to a page called "/action_page.php".</p>
+<script type="text/javascript">
+	function checkLogin() {
+		first_name=document.getElementById("first_name").value;
+		last_name=$("#last_name").val();
+		// alert("SUCCES");
+		$.ajax({
+			type:'POST',
+			url:'/user/create',
+			data:{
+				first_name:first_name=$("#first_name").val(),
+				last_name:last_name=$("#last_name").val(),
+				csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken').val()
+
+			},
+			success:function(){
+				alert("SUCCES");
+				$("#op").html(first_name);
+
+			}
+		});
+
+
+		alert(last_name);
+		// alert(first_name);
+		// body...
+	}
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</body>
+</html>
